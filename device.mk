@@ -40,10 +40,12 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 # Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := xlarge
+PRODUCT_AAPT_CONFIG := xlarge hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 PRODUCT_CHARACTERISTICS := tablet
+
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Bootanimation
 TARGET_SCREEN_HEIGHT := 1200
@@ -63,23 +65,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/nvaudio_conf.xml:system/etc/nvaudio_conf.xml
 
-# Bowser Base Keyhandler
-#PRODUCT_PACKAGES += \
-#    com.cyanogenmod.keyhandler
-
-#PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
-# never dexopt the keyhandler
-#$(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
-
 # Camera
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/camera/camera_overrides_front.isp:system/etc/camera_overrides_front.isp \
     $(LOCAL_PATH)/camera/model_frontal.xml:system/etc/model_frontal.xml
 
-# GPS
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/gps/gpsconfig.xml:system/etc/gps/gpsconfig.xml
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+    setup_fs
 
 # IDC
 PRODUCT_COPY_FILES += \
@@ -108,8 +101,6 @@ PRODUCT_PACKAGES += \
 
 # Media config
 PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
 
@@ -125,8 +116,5 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
 # Wifi
-PRODUCT_PACKAGES += \
-    dhcpcd.conf \
-    hostapd \
-    wpa_supplicant \
-    wpa_supplicant.conf
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf

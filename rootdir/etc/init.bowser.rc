@@ -347,6 +347,15 @@ service wlbwservice /system/bin/wlbwservice -t 50 6 70 2
     user system
     group system inet net_admin
 
+# create filesystems if necessary
+service setup_fs /system/bin/setup_fs \
+        /dev/block/platform/sdhci-tegra.3/by-name/UDA \
+        /dev/block/platform/sdhci-tegra.3/by-name/CAC
+    class core
+    user root
+    group root
+    oneshot
+
 # unified scaling setup
 service ussr_setup /system/bin/ussr_setup.sh
     class main
