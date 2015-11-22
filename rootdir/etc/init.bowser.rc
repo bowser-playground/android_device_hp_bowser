@@ -114,12 +114,17 @@ on boot
 
     # Backlight
     chown system system /sys/class/backlight/pwm-backlight/brightness
+    chmod 0666 /sys/class/backlight/pwm-backlight/brightness
 
     # Didim
     chown system system /sys/class/graphics/fb0/device/smartdimmer/enable
+    chmod 0666 /sys/class/graphics/fb0/device/smartdimmer/enable
     chown system system /sys/class/graphics/fb0/device/smartdimmer/aggressiveness
+    chmod 0666 /sys/class/graphics/fb0/device/smartdimmer/aggressiveness
     chown system system /sys/class/graphics/fb0/device/smartdimmer/sd_window
+    chmod 0666 /sys/class/graphics/fb0/device/smartdimmer/sd_window
     chown system system /sys/class/graphics/fb0/device/smartdimmer/sd_window_enable
+    chmod 0666 /sys/class/graphics/fb0/device/smartdimmer/sd_window_enable
 
     # CMU
     chown system system /sys/class/graphics/fb0/device/cmu_enable

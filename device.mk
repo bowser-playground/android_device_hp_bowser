@@ -17,7 +17,7 @@
 $(call inherit-product-if-exists, vendor/hp/bowser/bowser-vendor.mk)
 
 # Overlay
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+#DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -110,6 +110,12 @@ PRODUCT_PACKAGES += \
     init.bowser.rc \
     init.bowser.usb.rc \
     ueventd.bowser.rc
+
+# Ubuntu Overlay Files
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/ubuntu/display.conf:system/ubuntu/etc/ubuntu-touch-session.d/android.conf \
+   $(LOCAL_PATH)/ubuntu/udev.rules:system/ubuntu/lib/udev/rules.d/70-android.rules \
+   $(LOCAL_PATH)/ubuntu/powerd-config.xml:system/ubuntu/usr/share/powerd/device_configs/config-default.xml
 
 # USB
 PRODUCT_PACKAGES += \
