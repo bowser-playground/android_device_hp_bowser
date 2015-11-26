@@ -35,9 +35,9 @@ TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := tegra
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=tty1 apparmor=0
+BOARD_KERNEL_CMDLINE := console=tty1
 TARGET_KERNEL_SOURCE := kernel/hp/bowser
-TARGET_KERNEL_CONFIG := cyanogenmod_bowser_defconfig
+TARGET_KERNEL_CONFIG := ubuntu_bowser_defconfig
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
