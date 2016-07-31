@@ -37,7 +37,7 @@
 #define SYN_MAX_KEYBOARDS	32
 #define SYN_MAX_TOUCHPADS	32
 
-#define SYN_TOUCHPAD_MANAGER_DIR "/data/system"
+#define SYN_TOUCHPAD_MANAGER_DIR "/data/local/tmp"
 #define SYN_TOUCHPAD_MANAGER_FILE SYN_TOUCHPAD_MANAGER_DIR "/syntouchpad"
 
 #define SYNAPTICS_VENDOR	0x06CB
