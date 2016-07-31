@@ -26,7 +26,7 @@
 #include <cutils/log.h>
 
 #include <hardware/hardware.h>
-#include <hardware/keymaster.h>
+#include <hardware/keymaster0.h>
 
 #include <openssl/bn.h>
 #include <openssl/err.h>
@@ -39,6 +39,8 @@
 
 #include <UniquePtr.h>
 
+typedef keymaster0_device keymaster_device_t;
+typedef keymaster0_device keymaster_device;
 
 /** The size of a key ID in bytes */
 #define ID_LENGTH 32
@@ -224,7 +226,7 @@ static ByteArray* bignum_to_array(const BIGNUM* bn) {
     Unique_CK_BYTE bytes(new CK_BYTE[bignumSize]);
 
     unsigned char* tmp = reinterpret_cast<unsigned char*>(bytes.get());
-    if (BN_bn2bin(bn, tmp) != bignumSize) {
+    if (int(BN_bn2bin(bn, tmp)) != bignumSize) {
         ALOGE("public exponent size wasn't what was expected");
         return NULL;
     }
@@ -611,7 +613,7 @@ static int tee_import_keypair(const keymaster_device_t* dev,
     return keyblob_save(objId.get(), key_blob, key_blob_length);
 }
 
-static int tee_get_keypair_public(const struct keymaster_device* dev,
+static int tee_get_keypair_public(const keymaster_device* dev,
         const uint8_t* key_blob, const size_t key_blob_length,
         uint8_t** x509_data, size_t* x509_data_length) {
 
@@ -723,7 +725,7 @@ static int tee_get_keypair_public(const struct keymaster_device* dev,
     return 0;
 }
 
-static int tee_delete_keypair(const struct keymaster_device* dev,
+static int tee_delete_keypair(const keymaster_device* dev,
             const uint8_t* key_blob, const size_t key_blob_length) {
 
     CryptoSession session(reinterpret_cast<CK_SESSION_HANDLE>(dev->context));
