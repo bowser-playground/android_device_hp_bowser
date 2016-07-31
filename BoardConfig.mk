@@ -75,13 +75,9 @@ TARGET_RECOVERY_DEVICE_DIRS += device/hp/bowser
 TARGET_RECOVERY_FSTAB := device/hp/bowser/rootdir/etc/fstab.bowser
 
 # SELinux
-include device/nvidia/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
-    device/hp/bowser/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    file_contexts \
-    syntouchpad.te
+    device/hp/bowser/sepolicy/nvidia \
+    device/hp/bowser/sepolicy/bowser
 
 # Wifi
 BOARD_WLAN_DEVICE                := rtl
