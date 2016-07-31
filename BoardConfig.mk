@@ -34,9 +34,9 @@ TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := tegra
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive 
 TARGET_KERNEL_SOURCE := kernel/hp/bowser
-TARGET_KERNEL_CONFIG := cyanogenmod_bowser_defconfig
+TARGET_KERNEL_CONFIG := tegra11_bowser_android_defconfig
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
