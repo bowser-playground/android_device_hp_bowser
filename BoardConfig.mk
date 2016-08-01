@@ -26,15 +26,20 @@ TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a15
 
-# Bootloader
+# Board
+TARGET_BOARD_PLATFORM := tegra
 TARGET_BOOTLOADER_BOARD_NAME := bowser
 TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
-# Platform
-TARGET_BOARD_PLATFORM := tegra
+# Audio
+BOARD_USES_GENERIC_AUDIO := false
+BOARD_USES_ALSA_AUDIO := true
+# Remove if/when M libs are released
+TARGET_TINY_ALSA_IGNORE_SILENCE_SIZE := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive 
+BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive androidboot.hardware=bowser
 TARGET_KERNEL_SOURCE := kernel/hp/bowser
 TARGET_KERNEL_CONFIG := tegra11_bowser_android_defconfig
 
@@ -43,17 +48,20 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_RTL := true
 BOARD_BLUEDROID_VENDOR_CONF := device/hp/bowser/bluetooth/vnd_bowser.txt
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/hp/bowser/bluetooth
+BCM_BLUETOOTH_MANTA_BUG := true
 
 # Graphics
 USE_OPENGL_RENDERER := true
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# Malloc
-MALLOC_IMPL := dlmalloc
+# Media
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL \
+			-DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
 
 # Partition
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -63,21 +71,14 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1073741824 #1GB
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12614369280 #12GB
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-# Pre-L blob support
-COMMON_GLOBAL_CFLAGS += \
-  -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL \
-  -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
+# PowerHAL
+TARGET_POWERHAL_VARIANT := tegra
 
 # Recovery
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 TARGET_RECOVERY_DEVICE_DIRS += device/hp/bowser
 TARGET_RECOVERY_FSTAB := device/hp/bowser/rootdir/etc/fstab.bowser
-
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/hp/bowser/sepolicy/common \
-    device/hp/bowser/sepolicy/product
 
 # Wifi
 BOARD_WLAN_DEVICE                := rtl
@@ -96,3 +97,16 @@ BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 RECOVERY_SDCARD_ON_DATA := true
 TW_INCLUDE_SYNTOUCHPAD := true
+
+# Malloc
+MALLOC_IMPL := dlmalloc
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/hp/bowser/sepolicy/common \
+    device/hp/bowser/sepolicy/product
+
+
+# Vendor Init
+TARGET_INIT_VENDOR_LIB := libinit_bowser
+TARGET_LIBINIT_DEFINES_FILE := device/hp/bowser/init/init_bowser.cpp

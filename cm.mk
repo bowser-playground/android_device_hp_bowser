@@ -9,3 +9,4 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="bowser-user 4.4.2 4.4.2-17r25.1-11-11 17r25.1-11-11 release-keys"
 
 PRODUCT_NAME := cm_bowser
+PRODUCT_DEVICE := bowser
